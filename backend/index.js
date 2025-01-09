@@ -1,10 +1,12 @@
 import express from 'express';
 import router from './routes/route.js';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
 
 app.use(bodyParser.json()); // use before routes to ensure req bosy is parsed before any route handler process it
+app.use(cors())
 app.use('/', router);
 const PORT = 8080;
 

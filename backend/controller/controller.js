@@ -123,7 +123,7 @@ export const insertPassword = async (req, res) => {
         const result = await securityPoolDB.query(insertPasswordQuery, values);
 
         res.status(200).json({
-            'name' : name,
+            'name': name,
             'password': hashedPassword
         })
 
@@ -133,6 +133,22 @@ export const insertPassword = async (req, res) => {
             'status': 500,
             'error': error.message,
             'message': 'Error hashing password',
+        })
+    }
+}
+
+export const sendFormData = async (req, res) => {
+    try {
+        const body = req.body;
+        res.status(200).json({
+            'message' : 'Data',
+            'data' : body
+        })
+    } catch (error) {
+        console.log('Error while sending form data', error.message);
+        res.status(400).json({
+            'message': 'Error while sending data',
+            'error': error.message
         })
     }
 }
