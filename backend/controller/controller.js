@@ -139,16 +139,39 @@ export const insertPassword = async (req, res) => {
 
 export const sendFormData = async (req, res) => {
     try {
-        const body = req.body;
+        const { designation, email, password } = req.body;
+        console.log(designation, email, password);
+
+        const insertQuery = `INSERT INTO public."formUser"(email, password, designation) VALUES ($1, $2, $3);`
+        const values = [email, password, designation];
+        const result = await securityPoolDB.query(insertQuery, values);
         res.status(200).json({
-            'message' : 'Data',
-            'data' : body
+            'message' : 'Data inserted successfully',
+            'data' : req.body
         })
     } catch (error) {
         console.log('Error while sending form data', error.message);
         res.status(400).json({
             'message': 'Error while sending data',
             'error': error.message
+        })
+    }
+}
+
+export const fetchUserData = async(req, res) => {
+    try {
+        const { encryptedEmail } = req.params;
+        console.log(encryptedEmail);
+
+        res.status(200).json({
+            'message' : 'success'
+        })
+        
+    } catch (error) {
+        console.log('Error while fetching user data', error.message);
+        res.status(400).json({
+            'message' : 'Error while fetching user data details',
+            'error' : error.message
         })
     }
 }

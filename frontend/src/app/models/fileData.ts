@@ -3,3 +3,7 @@ export class formData {
     password : string = '';
     designation : string = ''
 }
+
+export class userEmail {
+    email : string = ''
+}
